@@ -70,7 +70,7 @@ class Stopwatch(QWidget):
         hours = time.hour()
         minutes = time.minute()
         seconds = time.second()
-        milliseconds = time.msec()
+        milliseconds = time.msec() // 10
         return f"{hours:02}:{minutes:02}:{seconds:02}:{milliseconds:02}"
 
     def update_display(self):
