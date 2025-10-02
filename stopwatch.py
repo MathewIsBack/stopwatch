@@ -34,20 +34,48 @@ class Stopwatch(QWidget):
 
         vbox.addLayout(hbox)
 
+        self.setStyleSheet(""" 
+            QPushButton, QLabel{
+                padding: 20px;
+                font-weight: bold;
+                font-family: calibri;
+            }
+            QPushButton{
+                font-size: 50px;   
+            }
+            QLabel{
+                font-size: 120px;  
+                background-color: hsl(200, 100%, 85%);
+                border-radius:20px;
+            }
+        """)
+
+        self.start_button.clicked.connect(self.start)
+        self.stop_button.clicked.connect(self.stop)
+        self.reset_button.clicked.connect(self.reset)
+        self.timer.timeout.connect(self.update_display)
+
     def start(self):
-        pass
+        self.timer.start(10)
 
     def stop(self):
-        pass
+        self.timer.stop()
 
     def reset(self):
-        pass
+        self.timer.stop()
+        self.time = QTime(0, 0, 0, 0)
+        self.time_label.setText(self.format_time(self.time))
 
     def format_time(self, time):
-        pass
+        hours = time.hour()
+        minutes = time.minute()
+        seconds = time.second()
+        milliseconds = time.msec()
+        return f"{hours:02}:{minutes:02}:{seconds:02}:{milliseconds:02}"
 
     def update_display(self):
-        pass
+        self.time = self.time.addMSecs(10)
+        self.time_label.setText(self.format_time(self.time))
 
 
 if __name__ == "__main__":
